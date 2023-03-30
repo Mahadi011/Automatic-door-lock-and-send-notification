@@ -1,26 +1,6 @@
 // C++ code
 //
 
-/*
-Now a days home security is very important in our life. Specially when you have Young teenager.
-Very often we have to be away from home due to our work, it would be great if we could receive some kind 
-of notification when someone come home or when the last person will go out from home.
-My model is to send notification when someone will come home and when house is 
-empty and lock the door automatically when last person is out from house.
-
-Here I use SIM 900 GSM module to send notification to the cell phone. I have written the code to send the notification but 
-I can't add the module to simulate my project thats why I commanded that part in my code . In my code i use LCD screen insted to show the 
-massage notification.
-
-Here I took 2 motion sensors name "out" and "in" when someone will come at home "out" sensor will activate and each time 
-"out" sensor is activated person count will increase by 1. When person count is 1 it will send the notification to the cell that 
-"SOMEONE AT HOME"
-When someone will go out from home then in sensor will activate and each time it will activate person count will decrease by
-1. So when person count is 0 then it will lock the door and send the notification to cell that
-"HOME IS EMPTY"
-"DOOR IS LOCKED"
-
-*/
 #include<Servo.h>
 #include<LiquidCrystal.h>
 #include<SoftwareSerial.h>
@@ -104,7 +84,7 @@ void loop()
     lcd.clear();
     lcd.setCursor(0,0);                               // setting cursore from where it will start writing in LCD
     lcd.print("Someone at HOME");
-    //send_massage("*****SOMEONE AT HOME*****");      // Calling send_massage function
+    send_massage("*****SOMEONE AT HOME*****");      // Calling send_massage function
     flag=1;
   }
   else if(person_count==0 && flag==1)
@@ -122,14 +102,14 @@ void loop()
     delay(1500);
     lcd.setCursor(0,1);                               // set cursore in the next line in LCD
     lcd.print("Door is locked");
-    // send_massage("***HOME IS EMPTY, DOOR IS LOCKED****");  //calling send_massage function
+    send_massage("***HOME IS EMPTY, DOOR IS LOCKED****");  //calling send_massage function
     door_lock.write(0); 							  // set the motor in initial state
     flag=0;
   }
 
 }
 // This code is for send notification to cell phone
-/*
+
 void send_massage(String a)
 {
   module.println("AT+CMGF=1");                       // set module in send SMS mode
@@ -141,4 +121,4 @@ void send_massage(String a)
   delay(time);
   
 }
-*/
+
